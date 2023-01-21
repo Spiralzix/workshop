@@ -4,7 +4,7 @@ metadata:
   name: app-env-config
   namespace: workshop-hotfix
 data:
-  HOSTNAME: "database-1.c7bdavepehea.ap-southeast-1.rds.amazonaws.com"
-  PORT: "5432"
+  HOSTNAME: ""
+  PORT: "1323"
   FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE: "true"
   DB_CONNECTION: "postgresql://group-2:group-2-pass@database-1.c7bdavepehea.ap-southeast-1.rds.amazonaws.com/group-2-hotfix"
