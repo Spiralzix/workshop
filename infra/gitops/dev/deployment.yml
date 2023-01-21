@@ -17,7 +17,7 @@ spec:
         - name: secret-docker
       containers:
         - name: gopher-api
-          image: ghcr.io/spiralzix/workshop:78aa34bf07d0b229cbb4249b9b1ade6d43981324
+          image: ghcr.io/spiralzix/workshop:835d90eb2b3be40115a3a832b74d315aad9b0007
           imagePullPolicy: Always
           ports:
             - containerPort: 1323
