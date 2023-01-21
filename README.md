@@ -12,7 +12,7 @@
 ### STEP0: Fork Repository
 
 1. Fork repository นี้ไปที่ Github ของตัวเอง
-1. 1 ทีม 1 Fork 1 คนเท่านั้นพอ *เราจะเพิ่มเพื่อนใน Step ถัดๆไปไม่ต้องกังวัล*
+1. 1 ทีม 1 Fork 1 คนเท่านั้นพอ _เราจะเพิ่มเพื่อนใน Step ถัดๆไปไม่ต้องกังวัล_
 
 ### STEP1: 🎃 Setup AWS Credential
 
@@ -61,10 +61,10 @@ Do you want to perform these actions?
 
 1. สร้าง Personal Access Token ของ Github
 1. ไปที่ [Personal Access Token](https://github.com/settings/tokens)
-1. กด `Generate new token (classic)`  *เอา classic นะ*
+1. กด `Generate new token (classic)` _เอา classic นะ_
 1. ตั้งชื่อ Note เป็น ชื่อกลุ่มตัวเอง เช่น `group-1`
 1. กดเลือกทีละอัน ทั้งหมด ทุกอัน แล้วกด `Generate token`
-1. เสร็จแล้ว copy ไว้ *มันจะไม่แสดงอีกแล้ว copy ได้แค่ครั้งเดียว ห้ามทำหาย*
+1. เสร็จแล้ว copy ไว้ _มันจะไม่แสดงอีกแล้ว copy ได้แค่ครั้งเดียว ห้ามทำหาย_
 1. set ค่า `WORKFLOW_TOKEN` ใน Github ของทีม
 1. กลับไปที่ Repository workshop ของเรา ที่เรา fork มา (e.g. <https://github.com/<your-account>/workshop>)
 1. ไปที่ Settings > Secrets and variables > Actions
@@ -81,15 +81,15 @@ References:
 1. แก้ไข CI/CD ให้เป็นชื่อ repository ของทีม
 1. ไปที่ Github Repository ของทีม แล้วไป tab Actions ดูว่า CI/CD ทำงานได้ไหม
 1. กด `I understand my workflows, go ahead and enable them` ถ้าเป็นครั้งแรกที่ใช้งาน
-1. เปิดโปรเจคของเราด้วย VSCode แล้ว find and replace `<your-github-account>` ให้เป็นชื่อ github account ของคุณคนที่ fork มา (<your-github-account> MUST be lowercase)
+1. เปิดโปรเจคของเราด้วย VSCode แล้ว find and replace `spiralzix` ให้เป็นชื่อ github account ของคุณคนที่ fork มา (spiralzix MUST be lowercase)
 1. git add -> git commit -> git push
 
 ### STEP3.2: แก้ไข DATABASE_URL ให้เป็น url ของทีม
 
- 1. find and replace `<DB_CONNECTION_DEV>` ให้เป็น database url DEV connection ของทีม
+1.  find and replace `<DB_CONNECTION_DEV>` ให้เป็น database url DEV connection ของทีม
 
- 2. find and replace `<DB_CONNECTION_HOTFIX>` ให้เป็น database url HOTFIX connection ของทีม
- 3. find and replace `<DB_CONNECTION_PRD>` ให้เป็น database url PRODUCTION connection ของทีม
+2.  find and replace `<DB_CONNECTION_HOTFIX>` ให้เป็น database url HOTFIX connection ของทีม
+3.  find and replace `<DB_CONNECTION_PRD>` ให้เป็น database url PRODUCTION connection ของทีม
 
 ### STEP3.3: เพิ่มสมาชิกใน Github
 
@@ -105,7 +105,7 @@ References:
 
 2.ติดตั้ง Kubernetes CLI ให้เรียบร้อย
 
-3.เนื่องจากเราใช้ AWS EKS เป็น Kubernetes Cluster ดังนั้นเราต้องเอา Kubernetes Context จาก AWS EKS โดยสั่ง (*มั่นใจว่าเรา run command ที่ terminal เดียวกันกับเรา export AWS_ACCESS_KEY_ID และ AWS_SECRET_ACCESS_KEY*)
+3.เนื่องจากเราใช้ AWS EKS เป็น Kubernetes Cluster ดังนั้นเราต้องเอา Kubernetes Context จาก AWS EKS โดยสั่ง (_มั่นใจว่าเรา run command ที่ terminal เดียวกันกับเรา export AWS_ACCESS_KEY_ID และ AWS_SECRET_ACCESS_KEY_)
 
 ```console
 aws eks update-kubeconfig --region ap-southeast-1 --name "eks-group-<ID>"
