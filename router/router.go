@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/kkgo-software-engineering/workshop/account"
-	cloudpockets "github.com/kkgo-software-engineering/workshop/cloud-pockets"
+	"github.com/kkgo-software-engineering/workshop/cloudpockets"
 	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/kkgo-software-engineering/workshop/featflag"
 	"github.com/kkgo-software-engineering/workshop/healthchk"
