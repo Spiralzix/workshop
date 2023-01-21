@@ -3,3 +3,5 @@
 .terraform*
 .terraform/
 *.tfstate
+docker-compose.e2e-test.yaml
+docker-compose.it-test.yaml
