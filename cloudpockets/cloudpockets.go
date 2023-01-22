@@ -37,25 +37,25 @@ func (h handler) GetAllCloudPockets(c echo.Context) error {
 		logger.Error("bad request body", zap.Error(err))
 		return echo.NewHTTPError(http.StatusBadRequest, "bad request body", err.Error())
 	}
-	stmt, err := h.db.Prepare("SELECT * FORM cloud_pockets")
+
+	rows, err := h.db.Query("SELECT * FROM cloud_pockets")
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "can't prepar query cloud_pockets statment:", err.Error())
-	}
-	rows, err := stmt.Query()
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "can't query all cloud_pockets", err.Error())
+		logger.Error("error", zap.Error(err))
+		return echo.NewHTTPError(http.StatusInternalServerError, "can't get all could pockets", err.Error())
 	}
 	var cloudPockets = []CloudPocket{}
 	for rows.Next() {
 		var c CloudPocket
-		err := rows.Scan(&c.ID, &c.Name, &c.Category, &c.Currency, &c.Balance)
+		err := rows.Scan(&c.ID, &c.Name, &c.Category, &c.Currency, &c.Balance, &c.Account)
 		if err != nil {
-			return echo.NewHTTPError(http.StatusInternalServerError, "can't query all cloud_pockets", err.Error())
+			logger.Error("can't scan query all cloud_pockets", zap.Error(err))
+			return echo.NewHTTPError(http.StatusInternalServerError, "can't scan query all cloud_pockets", err.Error())
 		}
 		c = CloudPocket{
-			ID: c.ID, Name: c.Name, Category: c.Category, Currency: c.Currency, Balance: c.Balance,
+			ID: c.ID, Name: c.Name, Category: c.Category, Currency: c.Currency, Balance: c.Balance, Account: c.Account,
 		}
 		cloudPockets = append(cloudPockets, c)
 	}
-	return echo.NewHTTPError(http.StatusOK, cloudPockets)
+
+	return c.JSON(http.StatusOK, cloudPockets)
 }
