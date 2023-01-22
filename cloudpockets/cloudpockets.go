@@ -11,11 +11,12 @@ import (
 )
 
 type CloudPocket struct {
-	ID       string  `json:"id"`
+	ID       int64   `json:"id"`
 	Name     string  `json:"name"`
 	Category string  `json:"category"`
 	Currency string  `json:"currency"`
 	Balance  float64 `json:"balance"`
+	Account  string  `json:"account"`
 }
 
 type handler struct {
