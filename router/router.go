@@ -11,6 +11,7 @@ import (
 	"github.com/kkgo-software-engineering/workshop/healthchk"
 	mw "github.com/kkgo-software-engineering/workshop/middleware"
 	"github.com/kkgo-software-engineering/workshop/mlog"
+	"github.com/kkgo-software-engineering/workshop/transaction"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
@@ -38,5 +39,9 @@ func RegRoute(cfg config.Config, logger *zap.Logger, db *sql.DB) *echo.Echo {
 	e.GET("/cloud-pockets", hCloudPockets.GetAllCloudPockets)
 	e.POST("/cloud-pockets", hCloudPockets.CreateCloudPockets)
 	e.GET("/cloud-pockets/:id", hCloudPockets.GetBalance)
+
+	hTx := transaction.New(cfg.FeatureFlag, db)
+	e.POST("/transactions", hTx.Transfer)
+
 	return e
 }

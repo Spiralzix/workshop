@@ -18,8 +18,8 @@ type resultTblTx struct {
 	ID     int       `json:"id"`
 	RefId  string    `json:"refId"`
 	PkId   int       `json:"pkId"`
-	Date   time.Time `json:"date"`
-	Desc   string    `json:"desc"`
+	TxDate time.Time `json:"txDate"`
+	TxDesc string    `json:"txdesc"`
 	Amount float64   `json:"amount"`
 	Type   string    `json:"type"`
 }
@@ -106,8 +106,8 @@ func (h handler) Transfer(c echo.Context) error {
 	}
 
 	var cp cloudpockets.CloudPocket
-	cStmt := `select * from cloud_pocket where id=$1`
-	err = h.db.QueryRowContext(ctx, cStmt, reqTf.PkSrc).Scan(&cp)
+	cStmt := `select account , category , balance , currency,id,name from cloud_pockets where id=$1`
+	err = h.db.QueryRowContext(ctx, cStmt, reqTf.PkSrc).Scan(&cp.Account, &cp.Category, &cp.Balance, &cp.Currency, &cp.ID, &cp.Name)
 	if err != nil {
 		logger.Error("query row error", zap.Error(err))
 		return err
@@ -128,34 +128,34 @@ func (h handler) Transfer(c echo.Context) error {
 	var from cloudpockets.CloudPocket
 	var to cloudpockets.CloudPocket
 
-	_, execErr := tx.Exec(`INSERT INTO transaction (RefId,PkId,Date,Desc,Amount,Type) VALUES($1,$2,$3,$4,$5,$6)`, transactionId, reqTf.PkSrc, now, reqTf.Description, reqTf.Amount, "credit")
+	_, execErr := tx.Exec(`INSERT INTO transactions (refid, pkid, txdate,txdesc, amount, type) VALUES ($1 ,$2 ,$3 ,$4 ,$5 ,$6)`, transactionId, reqTf.PkSrc, now, reqTf.Description, reqTf.Amount, "credit")
 	if execErr != nil {
 		_ = tx.Rollback()
-		logger.Error("query row error", zap.Error(execErr))
+		logger.Error("query row error1", zap.Error(execErr))
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
-	execErr = tx.QueryRow(`UPDATE cloud_pocket SET balance = balance - $1 WHERE id = $2 RETURNING *`, reqTf.Amount, reqTf.PkSrc).Scan(&from)
+	execErr = tx.QueryRow(`UPDATE cloud_pockets SET balance = balance - $1 WHERE id = $2 RETURNING account , category , balance , currency,id,name`, reqTf.Amount, reqTf.PkSrc).Scan(&from.Account, &from.Category, &from.Balance, &from.Currency, &from.ID, &from.Name)
 	if execErr != nil {
 		_ = tx.Rollback()
-		logger.Error("query row error", zap.Error(execErr))
+		logger.Error("query row error2", zap.Error(execErr))
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	_, execErr = tx.Exec(`INSERT INTO transaction (RefId,PkId,Date,Desc,Amount,Type) VALUES($1,$2,$3,$4,$5,$6)`, transactionId, reqTf.PkDest, now, reqTf.Description, reqTf.Amount, "debit")
+	_, execErr = tx.Exec(`INSERT INTO transactions (refid,pkid,txdate,txdesc,amount,type) VALUES($1,$2,$3,$4,$5,$6)`, transactionId, reqTf.PkDest, now, reqTf.Description, reqTf.Amount, "debit")
 	if execErr != nil {
 		_ = tx.Rollback()
-		logger.Error("query row error", zap.Error(execErr))
+		logger.Error("query row error3", zap.Error(execErr))
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
-	execErr = tx.QueryRow(`UPDATE cloud_pocket SET balance = balance + $1 WHERE id = $2 `, reqTf.Amount, reqTf.PkDest).Scan(&to)
+	execErr = tx.QueryRow(`UPDATE cloud_pockets SET balance = balance + $1 WHERE id = $2 RETURNING account , category , balance , currency,id,name`, reqTf.Amount, reqTf.PkDest).Scan(&to.Account, &to.Category, &to.Balance, &to.Currency, &to.ID, &to.Name)
 	if execErr != nil {
 		_ = tx.Rollback()
-		logger.Error("query row error", zap.Error(execErr))
+		logger.Error("query row error4", zap.Error(execErr))
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
 	if err := tx.Commit(); err != nil {
-		logger.Error("query row error", zap.Error(err))
+		logger.Error("query row error5", zap.Error(err))
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
