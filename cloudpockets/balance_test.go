@@ -1,8 +1,9 @@
+//go:build unit
+
 package cloudpockets
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -66,7 +67,6 @@ func TestGetExpenseHandler(t *testing.T) {
 
 		// Act
 		err = h.GetBalance(c)
-		fmt.Println("err", err)
 
 		// Assertions
 		assert.Equal(t, http.StatusOK, rec.Code)
