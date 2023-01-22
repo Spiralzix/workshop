@@ -9,13 +9,7 @@ import (
 )
 
 const (
-	cStmt         = "INSERT INTO cloud_pockets (Id, Name, Catagory, Currency, Balance) values ($1, $2, $3, $4, $5)  RETURNING id;"
-	cBalanceLimit = 10000
-)
-
-var (
-	hErrBalanceLimitExceed = echo.NewHTTPError(http.StatusBadRequest,
-		"create account balance exceed limitation")
+	cStmt = "INSERT INTO cloud_pockets (Id, Name, category, Currency, Balance , Account) values ($1, $2, $3, $4, $5 , $6)  RETURNING id;"
 )
 
 func (h handler) CreateCloudPoacket(c echo.Context) error {
@@ -28,14 +22,14 @@ func (h handler) CreateCloudPoacket(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "bad request body", err.Error())
 	}
 
-	var lastInsertId string
-	err = h.db.QueryRowContext(ctx, cStmt, e.ID, e.Name, e.Category, e.Currency, e.Balance).Scan(&lastInsertId)
+	var lastInsertId int64
+	err = h.db.QueryRowContext(ctx, cStmt, e.ID, e.Name, e.Category, e.Currency, e.Balance, e.Account).Scan(&lastInsertId)
 	if err != nil {
 		logger.Error("query row error", zap.Error(err))
 		return err
 	}
 
-	logger.Info("create successfully", zap.String("id", lastInsertId))
+	logger.Info("create successfully", zap.Int64("id", lastInsertId))
 	e.ID = lastInsertId
 	return c.JSON(http.StatusCreated, e)
 }
