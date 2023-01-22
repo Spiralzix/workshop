@@ -12,7 +12,7 @@ const (
 	cStmt = "INSERT INTO cloud_pockets (Id, Name, category, Currency, Balance , Account) values ($1, $2, $3, $4, $5 , $6)  RETURNING id;"
 )
 
-func (h handler) CreateCloudPoacket(c echo.Context) error {
+func (h handler) CreateCloudPockets(c echo.Context) error {
 	logger := mlog.L(c)
 	ctx := c.Request().Context()
 	e := CloudPocket{}
