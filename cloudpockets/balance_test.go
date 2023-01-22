@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetExpenseHandler(t *testing.T) {
+func TestGetBalanceHandler(t *testing.T) {
 
 	t.Run("Pass-condition", func(t *testing.T) {
 		mockRows := sqlmock.NewRows([]string{"id", "name", "balance", "category", "currency", "account"}).
@@ -67,6 +67,6 @@ func TestGetExpenseHandler(t *testing.T) {
 		err = h.GetBalance(c)
 
 		// Assertions
-		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Equal(t, http.StatusNotFound, rec.Code)
 	})
 }

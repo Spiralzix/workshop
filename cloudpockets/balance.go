@@ -18,7 +18,7 @@ func (h *handler) GetBalance(c echo.Context) error {
 	err = row.Scan(&e.ID, &e.Name, &e.Balance, &e.Category, &e.Currency, &e.Account)
 	switch err {
 	case sql.ErrNoRows:
-		return echo.NewHTTPError(http.StatusNotFound, err.Error())
+		return c.JSON(http.StatusNotFound, echo.NewHTTPError(http.StatusNotFound, "err.Error()"))
 	case nil:
 		return c.JSON(http.StatusCreated, e)
 	default:
