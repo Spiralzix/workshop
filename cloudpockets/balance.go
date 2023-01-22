@@ -14,8 +14,8 @@ func (h *handler) GetBalance(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Cannot bind request")
 	}
-	row := h.db.QueryRow("SELECT ID, Name, Balance, Category, Currency FROM cloud_pockets WHERE id = $1", id)
-	err = row.Scan(&e.ID, &e.Name, &e.Balance, &e.Category, &e.Currency)
+	row := h.db.QueryRow("SELECT ID, Name, Balance, Category, Currency, Account FROM cloud_pockets WHERE id = $1", id)
+	err = row.Scan(&e.ID, &e.Name, &e.Balance, &e.Category, &e.Currency, &e.Account)
 	switch err {
 	case sql.ErrNoRows:
 		return echo.NewHTTPError(http.StatusNotFound, err.Error())

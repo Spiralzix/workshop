@@ -1,5 +1,3 @@
-//go:build unit
-
 package cloudpockets
 
 import (
@@ -18,9 +16,9 @@ import (
 func TestGetExpenseHandler(t *testing.T) {
 
 	t.Run("Pass-condition", func(t *testing.T) {
-		mockRows := sqlmock.NewRows([]string{"id", "name", "balance", "category", "currency"}).
-			AddRow("userTest", "Peter", 1000.00, "Travel", "THB")
-		expected := `{"id":"userTest","name":"Peter","category":"Travel","currency":"THB","balance":1000}`
+		mockRows := sqlmock.NewRows([]string{"id", "name", "balance", "category", "currency", "account"}).
+			AddRow("111", "Peter", 1000.00, "Travel", "THB", "test01")
+		expected := `{"id":111,"name":"Peter","category":"Travel","currency":"THB","balance":1000,"account":"test01"}`
 
 		// Arrange
 		e := echo.New()
