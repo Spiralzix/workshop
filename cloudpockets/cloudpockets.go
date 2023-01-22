@@ -49,7 +49,7 @@ func (h handler) GetAllCloudPockets(c echo.Context) error {
 		err := rows.Scan(&c.ID, &c.Name, &c.Category, &c.Currency, &c.Balance, &c.Account)
 		if err != nil {
 			logger.Error("can't scan query all cloud_pockets", zap.Error(err))
-			return echo.NewHTTPError(http.StatusInternalServerError, "can't scan query all cloud_pockets", err.Error())
+			return echo.NewHTTPError(http.StatusInternalServerError, "can't get all could pockets", err.Error())
 		}
 		c = CloudPocket{
 			ID: c.ID, Name: c.Name, Category: c.Category, Currency: c.Currency, Balance: c.Balance, Account: c.Account,
