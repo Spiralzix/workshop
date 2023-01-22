@@ -8,21 +8,23 @@ CREATE TABLE "accounts" (
     PRIMARY KEY ("id")
 );
 
-CREATE TABLE "cloud_pockets" (
-    "id" int8 NULL,
-    "name" text NULL,
-    "currency" text null,
-    "category" text NULL,
-    "balance" float8 NULL,
-    "account" text null
-);
+-- CREATE TABLE "cloud_pockets" (
+--     "id" int8 NULL,
+--     "name" varchar NULL,
+--     "currency" varchar Null,
+--     "category" varchar NULL,
+--     "balance" float8 NULL,
+--     "account" varchar null,
+--     PRIMARY KEY ("id")
+-- );
 
-CREATE TABLE transactions (
-	"id" int8 NULL,
-	"refid" varchar NULL,
-	"pkid" int8 NULL,
-	"date" timestamp NULL,
-	"desc" varchar NULL,
-	"amount" float8 NULL,
-	"type" varchar NULL
-);
+-- CREATE TABLE transactions (
+-- 	"id" int8 NULL,
+-- 	"refid" varchar NULL,
+-- 	"pkid" int8 NULL,
+-- 	"date" timestamp NULL,
+-- 	"desc" varchar NULL,
+-- 	"amount" float8 NULL,
+-- 	"type" varchar NULL ,
+--     PRIMARY KEY ("id")
+-- );
