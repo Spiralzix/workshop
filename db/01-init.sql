@@ -1,6 +1,6 @@
 CREATE SEQUENCE IF NOT EXISTS account_id;
 CREATE SEQUENCE IF NOT EXISTS cloud_pockets;
-REATE SEQUENCE IF NOT EXISTS transactions ;
+CREATE SEQUENCE IF NOT EXISTS transactions ;
 
 CREATE TABLE "accounts" (
     "id" int4 NOT NULL DEFAULT nextval('account_id'::regclass),
@@ -11,7 +11,7 @@ CREATE TABLE "accounts" (
 CREATE TABLE "cloud_pockets" (
     "id" int8 NULL,
     "name" text NULL,
-    "currency" text null.
+    "currency" text null,
     "category" text NULL,
     "balance" float8 NULL,
     "account" text null
