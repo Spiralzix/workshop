@@ -45,7 +45,7 @@ func TestGetBalanceHandler(t *testing.T) {
 		}
 	})
 
-	t.Run("Fail404, UserNotFound", func(t *testing.T) {
+	t.Run("Fail404 UserNotFound", func(t *testing.T) {
 		// Arrange
 		e := echo.New()
 		req := httptest.NewRequest(http.MethodGet, "/", nil)
